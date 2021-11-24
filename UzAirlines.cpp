@@ -59,7 +59,6 @@ int main()
 
 		Greeting();
 
-		cout << endl;
 		cout << "Enter the number of option: ";
 		string option;
 		cin >> option;
@@ -116,6 +115,7 @@ void Greeting()
 	cout << "1. Book a ticket" << endl;
 	cout << "2. Look at today's flight table." << endl;
 	cout << "3. Look at list of avialable destinations." << endl;
+	cout << endl;
 }
 
 void FillFlightTable(int num)
