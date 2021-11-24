@@ -49,8 +49,8 @@ void ShowTicket();
 
 int main()
 {
-	//UNCOMMENT BELOW TO DEPLOY THE BOMB
-	//system("color 60");
+	srand(time(0));
+	system("color e");
 
 	bool booked = false;
 	while (booked == false)
@@ -70,12 +70,13 @@ int main()
 
 			booked = BookTicket();
 			if (booked)
-				ShowTicket();			
+				ShowTicket();
 		}
 		else if (option == "2")
 		{
 			system("cls");
 
+			date = to_string(rand() % 31 + 1) + ".12.2021";
 			ShowFlightTable();
 			cin >> option;
 
@@ -86,11 +87,11 @@ int main()
 				flight = table_info[stoi(option) - 1][const_flight];
 				destination = table_info[stoi(option) - 1][const_dest];
 				gate = table_info[stoi(option) - 1][const_gate];
-				
+
 				booked = BookTicket();
 				if (booked)
 					ShowTicket();
-			}				
+			}
 		}
 		else if (option == "3")
 		{
@@ -99,7 +100,7 @@ int main()
 			booked = BookTicket();
 			if (booked)
 				ShowTicket();
-		}		
+		}
 	}
 
 	system("pause");
@@ -119,8 +120,6 @@ void Greeting()
 
 void FillFlightTable(int num)
 {
-	srand(time(0));
-
 	for (int i = 0; i < num; i++)
 	{
 		cout << setfill(' ');
@@ -174,25 +173,13 @@ void ShowFlightTable()
 	cout << setfill(' ') << setw(67) << "Departures." << endl;
 	cout << setfill('_') << setw(121) << '\n' << endl;
 
-	cout << endl;
-	cout << setfill(' ');
-	cout << setw(45) << "Current date: ";
-	cout << endl;
+	cout << setfill(' ') << setw(36) << "Current date: " << date << endl;
 
-	cout << setfill(' ');
-	cout << setw(22) << char(201);
-	cout << setfill(char(205));
-	cout << setw(5) << char(203);
-	cout << setw(10) << char(203);
-	cout << setw(25) << char(203);
-	cout << setw(10) << char(203);
-	cout << setw(10) << char(203);
-	cout << setw(15) << char(187);
-	cout << endl;
+	//Printing top border of the table's heading
+	cout << setw(22) << char(201) << setfill(char(205)) << setw(5) << char(203) << setw(10) << char(203) << setw(25) << char(203) << setw(10) << char(203) << setw(10) << char(203) << setw(15) << char(187) << endl;
 
-	cout << setfill(' ');
-	cout << setw(22) << char(186);
-	cout << left;
+	//Filling header with categories
+	cout << setfill(' ') << setw(22) << char(186) << left;
 	cout << ' ' << setw(3) << 'N' << char(186);
 	cout << ' ' << setw(8) << "Flight" << char(186);
 	cout << ' ' << setw(23) << "Destination" << char(186);
@@ -201,40 +188,16 @@ void ShowFlightTable()
 	cout << ' ' << setw(13) << "Remark" << char(186);
 	cout << endl;
 
-	cout << right << setfill(' ');
-	cout << setw(22) << char(200);
-	cout << setfill(char(205));
-	cout << setw(5) << char(202);
-	cout << setw(10) << char(202);
-	cout << setw(25) << char(202);
-	cout << setw(10) << char(202);
-	cout << setw(10) << char(202);
-	cout << setw(15) << char(188);
-	cout << endl;
+	//Printing bottom border of the table's heading
+	cout << right << setfill(' ') << setw(22) << char(200) << setfill(char(205)) << setw(5) << char(202) << setw(10) << char(202) << setw(25) << char(202) << setw(10) << char(202) << setw(10) << char(202) << setw(15) << char(188) << endl;
 
-	cout << setfill(' ');
-	cout << setw(22) << char(218);
-	cout << setfill(char(196));
-	cout << setw(5) << char(194);
-	cout << setw(10) << char(194);
-	cout << setw(25) << char(194);
-	cout << setw(10) << char(194);
-	cout << setw(10) << char(194);
-	cout << setw(15) << char(191);
-	cout << endl;
+	//Printing top border of the table's body part
+	cout << setfill(' ') << setw(22) << char(218) << setfill(char(196)) << setw(5) << char(194) << setw(10) << char(194) << setw(25) << char(194) << setw(10) << char(194) << setw(10) << char(194) << setw(15) << char(191) << endl;
 
 	FillFlightTable(7);
 
-	cout << right << setfill(' ');
-	cout << setw(22) << char(192);
-	cout << setfill(char(196));
-	cout << setw(5) << char(193);
-	cout << setw(10) << char(193);
-	cout << setw(25) << char(193);
-	cout << setw(10) << char(193);
-	cout << setw(10) << char(193);
-	cout << setw(15) << char(217);
-	cout << endl;
+	//Printing bottom border of the table's body part
+	cout << right << setfill(' ') << setw(22) << char(192) << setfill(char(196)) << setw(5) << char(193) << setw(10) << char(193) << setw(25) << char(193) << setw(10) << char(193) << setw(10) << char(193) << setw(15) << char(217) << endl;
 
 	cout << endl << setfill(' ') << setw(22) << ' ' << "Enter 0 to go to home page." << endl;
 	cout << setw(22) << ' ' << "Choose the number of flight: ";
@@ -242,31 +205,29 @@ void ShowFlightTable()
 
 void ShowDestinations()
 {
-	cout << right <<  setfill('_') << setw(121) << '\n' << endl;
+	cout << right << setfill('_') << setw(121) << '\n' << endl;
 	cout << setfill(' ') << setw(72) << "Available destinations." << endl;
 	cout << setfill('_') << setw(121) << '\n' << endl;
 
-	for (int i = 1; i < 81; i++)
+	for (int i = 0; i < 80; i++)
 	{
-		if (i % 5 == 1)
-			cout << setfill(' ') << setw(25) << ' ';
-		cout << left << setw(15) << destinations[i - 1];
 		if (i % 5 == 0)
-			cout << endl;
+			cout << endl << setfill(' ') << setw(25) << ' ';
+		cout << left << setw(15) << destinations[i];
 	}
+	cout << endl;
 }
 
 void InputDestination()
 {
 	bool correct = false;
-
-	while (correct == false && (destination == ""))
+	while (correct == false && destination == "")
 	{
 		cout << "\nEnter the destination: ";
 		string input;
 		cin >> input;
 
-		//checking input
+		//checking entered destination for typos
 		correct = true;
 		for (int i = 0; i < input.length(); i++)
 		{
@@ -317,15 +278,13 @@ void InputDestination()
 
 			correct = false;
 		}
-
 	}
 }
 
 void InputDate()
 {
 	bool correct = false;
-
-	while (correct == false && (date == ""))
+	while (correct == false && date == "")
 	{
 		cout << "\nEnter the day of departure in this month: ";
 		string input;
@@ -352,14 +311,13 @@ void InputDate()
 		if (correct == false)
 			cout << "Please, enter valid date." << endl;
 		else
-			::date = input + ".11.2021";
+			::date = input + ".12.2021";
 	}
 }
 
 void InputName()
 {
 	bool correct = false;
-
 	while (correct == false)
 	{
 		cout << "\nEnter your first name: ";
@@ -384,7 +342,7 @@ void InputName()
 			input[0] = toupper(input[0]);
 			for (int i = 1; i < input.length(); i++)
 				input[i] = tolower(input[i]);
-			
+
 			name += input;
 		}
 	}
@@ -454,7 +412,7 @@ bool BookTicket()
 
 	if (flight == "")
 		flight = destination.substr(0, 3) + to_string(rand() % 900 + 100);
-	
+
 	if (gate == "")
 		gate += char(rand() % 10 + 65) + to_string(rand() % 9 + 1);
 
@@ -473,19 +431,16 @@ bool BookTicket()
 void ShowTicket()
 {
 	system("cls");
+
 	cout << right << setfill('_') << setw(121) << '\n' << endl;
 	cout << setfill(' ') << setw(65) << "Your ticket." << endl;
 	cout << setfill('_') << setw(121) << '\n' << endl;
 
 	cout << endl;
-	cout << setfill(' ') << setw(10) << char(201);
-	cout << setfill(char(205)) << setw(70) << char(187) << endl;
-	cout << setfill(' ');
+	cout << setfill(' ') << setw(10) << char(201) << setfill(char(205)) << setw(70) << char(187) << endl;
+	cout << setfill(' ') << setw(10) << char(186) << setw(70) << char(186) << endl;
 	cout << setw(10) << char(186) << setw(70) << char(186) << endl;
-	cout << setw(10) << char(186) << setw(70) << char(186) << endl;
-	cout << setw(10) << char(186);
-	cout << setw(30) << "Passenger name: " << name;
-	cout << setw(20) << char(186) << endl;
+	cout << setw(10) << char(186) << setw(30) << "Passenger name: " << name << setw(20) << char(186) << endl;
 	cout << setw(10) << char(186) << setw(70) << char(186) << endl;
 	cout << setw(10) << char(186) << setw(10) << "Flight: " << flight << setw(60) << char(186) << endl;
 	cout << setw(10) << char(186) << setw(70) << char(186) << endl;
