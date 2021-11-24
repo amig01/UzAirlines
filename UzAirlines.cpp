@@ -49,12 +49,16 @@ void ShowTicket();
 
 int main()
 {
+	//Linking rand() function's return values to time
 	srand(time(0));
+
+	//Setting text's color in command line to the light-yellow
 	system("color e");
 
 	bool booked = false;
 	while (booked == false)
 	{
+		//Clearing all data about the flight
 		name = destination = date = flight = gate = seat = "";
 
 		Greeting();
@@ -76,13 +80,16 @@ int main()
 			system("cls");
 
 			date = to_string(rand() % 31 + 1) + ".12.2021";
+
 			ShowFlightTable();
+			
 			cin >> option;
 
 			system("cls");
 
 			if (option == "1" || option == "2" || option == "3" || option == "4" || option == "5" || option == "6" || option == "7")
 			{
+				//Extracting chosen flight's additional data from the table and copying it to the data about the flight 
 				flight = table_info[stoi(option) - 1][const_flight];
 				destination = table_info[stoi(option) - 1][const_dest];
 				gate = table_info[stoi(option) - 1][const_gate];
@@ -95,7 +102,9 @@ int main()
 		else if (option == "3")
 		{
 			system("cls");
+
 			ShowDestinations();
+
 			booked = BookTicket();
 			if (booked)
 				ShowTicket();
@@ -127,9 +136,9 @@ void FillFlightTable(int num)
 		cout << left;
 		cout << ' ' << setw(3) << i + 1 << char(179);
 
+		//Assigning proper random values to temporary variables
 		int h = rand() % 10 + 10;
 		int m = rand() % 10 + 10;
-
 
 		string temp;
 		temp = destinations[rand() % 80];
@@ -137,6 +146,7 @@ void FillFlightTable(int num)
 		for (int j = 0; j < temp.length(); j++)
 			temp[j] = toupper(temp[j]);
 
+		//Filling flights table by assigning temporary variables to array elements
 		table_info[i][const_dest] = temp;
 
 		table_info[i][const_flight] = temp.substr(0, 3) + to_string(rand() % 900 + 100);
@@ -144,6 +154,7 @@ void FillFlightTable(int num)
 		table_info[i][const_gate] = "";
 		table_info[i][const_gate] += char(rand() % 10 + 65) + to_string(rand() % 9 + 1);
 
+		//Printing table information
 		cout << ' ' << setw(8) << table_info[i][const_flight] << char(179);
 		cout << ' ' << setw(23) << table_info[i][const_dest] << char(179);
 		cout << ' ' << setw(8) << to_string(h) + ":" + to_string(m) << char(179);
@@ -154,16 +165,8 @@ void FillFlightTable(int num)
 		if (i == num - 1)
 			break;
 
-		cout << right << setfill(' ');
-		cout << setw(22) << char(195);
-		cout << setfill(char(196));
-		cout << setw(5) << char(197);
-		cout << setw(10) << char(197);
-		cout << setw(25) << char(197);
-		cout << setw(10) << char(197);
-		cout << setw(10) << char(197);
-		cout << setw(15) << char(180);
-		cout << endl;
+		//Printing middle border to separate body information
+		cout << right << setfill(' ') << setw(22) << char(195) << setfill(char(196)) << setw(5) << char(197) << setw(10) << char(197) << setw(25) << char(197) << setw(10) << char(197) << setw(10) << char(197) << setw(15) << char(180) << endl;
 	}
 }
 
@@ -227,7 +230,7 @@ void InputDestination()
 		string input;
 		cin >> input;
 
-		//checking entered destination for typos
+		//Checking entered destination for typos
 		correct = true;
 		for (int i = 0; i < input.length(); i++)
 		{
@@ -244,7 +247,7 @@ void InputDestination()
 			continue;
 		}
 
-		//checking entered destination for avalability
+		//Checking entered destination for avalability
 		bool available = false;
 
 		for (int i = 0; i < input.length(); i++)
@@ -290,7 +293,7 @@ void InputDate()
 		string input;
 		cin >> input;
 
-		//checking input
+		//Checking date for typo or for existence
 		if (input.length() == 1)
 		{
 			input += input[0];
@@ -324,7 +327,7 @@ void InputName()
 		string input;
 		cin >> input;
 
-		//checking input for first name
+		//Checking first name for typos
 		correct = true;
 		for (int i = 0; i < input.length(); i++)
 		{
@@ -354,7 +357,7 @@ void InputName()
 		string input;
 		cin >> input;
 
-		//checking input for last name
+		//Checking last name for typos
 		correct = true;
 		for (int i = 0; i < input.length(); i++)
 		{
@@ -385,6 +388,7 @@ void ShowProgress()
 	cout << setfill(' ') << setw(75) << "Where do you want to explore?" << endl;
 	cout << setfill('_') << setw(121) << '\n' << endl;
 
+	//The function ShowProgres() was implemented in order to make the process of booking neat and tidy as it clears previous inputs and prints only given information
 	if (destination != "")
 		cout << "Destination: " << destination << endl;
 
@@ -410,6 +414,7 @@ bool BookTicket()
 	InputName();
 	ShowProgress();
 
+	//If the flight was not chosen from today's flight table all these 3 if statements will be ran to fill the necessary information
 	if (flight == "")
 		flight = destination.substr(0, 3) + to_string(rand() % 900 + 100);
 
@@ -437,19 +442,19 @@ void ShowTicket()
 	cout << setfill('_') << setw(121) << '\n' << endl;
 
 	cout << endl;
-	cout << setfill(' ') << setw(10) << char(201) << setfill(char(205)) << setw(70) << char(187) << endl;
-	cout << setfill(' ') << setw(10) << char(186) << setw(70) << char(186) << endl;
-	cout << setw(10) << char(186) << setw(70) << char(186) << endl;
-	cout << setw(10) << char(186) << setw(30) << "Passenger name: " << name << setw(20) << char(186) << endl;
-	cout << setw(10) << char(186) << setw(70) << char(186) << endl;
-	cout << setw(10) << char(186) << setw(10) << "Flight: " << flight << setw(60) << char(186) << endl;
-	cout << setw(10) << char(186) << setw(70) << char(186) << endl;
-	cout << setw(10) << char(186) << setw(20) << "From: TASHKENT" << setw(20) << "To: " << destination << setw(50) << char(186) << endl;
-	cout << setw(10) << char(186) << setw(70) << char(186) << endl;
-	cout << setw(10) << char(186) << setw(10) << "Date: " + date << setw(55) << char(186) << endl;
-	cout << setw(10) << char(186) << setw(70) << char(186) << endl;
-	cout << setw(10) << char(186) << setw(10) << "Gate: " + gate << setw(60) << char(186) << endl;
-	cout << setw(10) << char(186) << setw(70) << char(186) << endl;
-	cout << setw(10) << char(186) << setw(10) << "Seat: " + seat << setw(60) << char(186) << endl;
-	cout << setw(10) << char(186) << setw(70) << char(186) << endl;
+	cout << setfill(' ') << setw(10) << char(218) << setfill(char(196)) << setw(70) << char(210) << setw(30) << char(191) << endl;
+	cout << setfill(' ') << setw(10) << char(179) << setw(40) << "UzAirlines" << setw(30) << char(186) << setw(20) << "UzAirlines" << setw(10) << char(179) << endl;
+	cout << setfill(' ') << setw(10) << char(195) << setfill(char(196)) << setw(70) << char(215) << setw(30) << char(180) << endl;
+
+	//Every single "cout" in line is printing only one line 
+	cout << setfill(' ') << right << setw(10) << char(179) << setw(70) << char(186) << setw(30) << char(179) << endl;
+	cout << right << setw(10) << char(179) << setw(20) << "Passenger name: " << left << setw(49) << name << char(186) << right << setw(10) << "Date: " << left << setw(19) << date << char(179) << endl;
+	cout << right << setw(10) << char(179) << setw(20) << "Flight: " << left << setw(49) << flight << char(186) << right << setw(30) << char(179) << endl;
+	cout << right << setw(10) << char(179) << setw(70) << char(186) << right << setw(10) << "Gate: " << left << setw(19) << gate << char(179) << endl;
+	cout << right << setw(10) << char(179) << setw(20) << "From: " << left << setw(10) << "TASHKENT" << right << setw(10) << "To: " << left << setw(10) << destination << right << setw(20) << char(186) << setw(30) << char(179) << endl;
+	cout << right << setw(10) << char(179) << setw(70) << char(186) << right << setw(10) << "Seat: " << left << setw(19) << seat << char(179) << endl;
+	cout << right << setw(10) << char(179) << setw(20) << "Date: " << setw(20) << "Gate: " << setw(20) << "Seat: " << setw(10) << char(186) << setw(30) << char(179) << endl;
+	cout << right << setw(10) << char(179) << setw(25) << date << setw(15) << gate << setw(20) << seat << setw(10) << char(186) << right << setw(10) << "To: " << left << setw(19) << destination << char(179) << endl;
+	cout << right << setw(10) << char(179) << setw(70) << char(186) << setw(30) << char(179) << endl;
+	cout << setfill(' ') << setw(10) << char(192) << setfill(char(196)) << setw(70) << char(208) << setw(30) << char(217) << endl;
 }
