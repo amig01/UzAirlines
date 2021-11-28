@@ -8,7 +8,9 @@ using namespace std;
 
 string name, destination, date, flight, gate, seat;
 
-string table_info[10][3];
+const int rows_in_flights_table = 7;
+string table_info[rows_in_flights_table][3];
+
 const int const_flight = 0;
 const int const_dest = 1;
 const int const_gate = 2;
@@ -82,7 +84,7 @@ int main()
 			date = to_string(rand() % 31 + 1) + ".12.2021";
 
 			ShowFlightTable();
-			
+
 			cin >> option;
 
 			system("cls");
@@ -127,9 +129,9 @@ void Greeting()
 	cout << endl;
 }
 
-void FillFlightTable(int num)
+void FillFlightTable(int rows_in_flights_table)
 {
-	for (int i = 0; i < num; i++)
+	for (int i = 0; i < rows_in_flights_table; i++)
 	{
 		cout << setfill(' ');
 		cout << setw(22) << char(179);
@@ -162,7 +164,7 @@ void FillFlightTable(int num)
 		cout << ' ' << setw(13); rand() % 3 == 0 ? cout << "BOARDING" : cout << "CHECK-IN"; cout << char(179);
 		cout << endl;
 
-		if (i == num - 1)
+		if (i == rows_in_flights_table - 1)
 			break;
 
 		//Printing middle border to separate body information
@@ -197,7 +199,7 @@ void ShowFlightTable()
 	//Printing top border of the table's body part
 	cout << setfill(' ') << setw(22) << char(218) << setfill(char(196)) << setw(5) << char(194) << setw(10) << char(194) << setw(25) << char(194) << setw(10) << char(194) << setw(10) << char(194) << setw(15) << char(191) << endl;
 
-	FillFlightTable(7);
+	FillFlightTable(rows_in_flights_table);
 
 	//Printing bottom border of the table's body part
 	cout << right << setfill(' ') << setw(22) << char(192) << setfill(char(196)) << setw(5) << char(193) << setw(10) << char(193) << setw(25) << char(193) << setw(10) << char(193) << setw(10) << char(193) << setw(15) << char(217) << endl;
